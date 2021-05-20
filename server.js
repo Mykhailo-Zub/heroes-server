@@ -55,12 +55,12 @@ const create = (req, res) => {
 const update = (req, res) => {
   Heroes.updateOne({ _id: req.params.id }, { $set: req.body })
     .exec()
-    .then((hero) => req.json(hero))
+    .then((hero) => res.json(hero))
     .catch((err) => res.status(500).json(err));
 };
 
 const remove = (req, res) => {
-  Heroes.deleteOne({ id: req.params.id })
+  Heroes.findOneAndRemove({ _id: req.params.id })
     .exec()
     .then(() => res.json({ success: true }))
     .catch((err) => res.status(500).json(err));
